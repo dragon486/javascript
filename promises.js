@@ -77,3 +77,24 @@ Buymaggie()
 .then(MaggieEaten);
 
 
+
+function Downloadmovie(url){
+    return new Promise((resolve,reject) => {
+        let externalurl = url.split('/').pop().split('.').pop();
+        if(externalurl != mp4){
+            reject("this is not mp4 file");
+        }else{
+            setTimeout(() => {
+                resolve(url.split('/').pop());
+            },2000);
+        }
+    });
+}
+
+Downloadmovie("www.movie.com/abcd.mp4")
+.then((value) => {
+    console.log("movie downloaded "+ value);
+})
+.catch((error) => {
+    console.log("error "+ error);
+});

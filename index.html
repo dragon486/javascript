@@ -3,9 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript</title>
+    <title>Time Table</title>
+    <link rel="stylesheet" href="weeklytable.css">
 </head>
 <body>
-    <script src="iterables.js"></script>
+    <center>
+    <h1>Weekly Time Table</h1>
+    <div id="weekdays">
+        <ul id="days">
+            <li data-day="monday">Monday</li>
+            <li data-day="tuesday">Tuesday</li>
+            <li data-day="wednesday">Wednesday</li>
+            <li data-day="thursday">Thursday</li>
+            <li data-day="friday">Friday</li>
+        </ul>
+    </div>
+    <div class="info" id="infobox">
+        <p>Hover over a day to see timetable</p>
+    </div>
+    </center>
+    <script src="weeklytable.js"></script>
 </body>
 </html>
