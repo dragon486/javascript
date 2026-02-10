@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cat Images</title>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .box {
+      width: 250px;
+      height: 250px;
+      border: 3px solid #444;
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box"><img id="cat1" alt="Cat" src=""></div>
+  <div class="box"><img id="cat2" alt="Cat" src=""></div>
+  <div class="box"><img id="cat3" alt="Cat"src=""></div>
+    
+  <script>
+    function loadCat(imgId) {
+      fetch("https://api.thecatapi.com/v1/images/search")
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById(imgId).src = data[0].url;
+        })
+        .catch(error => {
+          console.error("Error loading cat:", error);
+        });
+    }
+
+    loadCat("cat1");
+    loadCat("cat2");
+    loadCat("cat3");
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #74ebd5, #9face6);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .weather {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    input {
+      padding: 8px;
+      width: 90%;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 8px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    #output {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="weather">
+    <h2>🌦️ Weather App</h2>
+
+    <input id="city" placeholder="Enter city name">
+
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div id="output"></div>
+  </div>
+
+  <script>
+    async function getWeather() {
+      const city = document.getElementById("city").value.trim();
+        const output = document.getElementById("output");
+        try{
+            const geo = await axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`);
+            if(!geo.data.result) throw new Error("City not found");
+
+            const { latitude, longitude, name } = geo.data.result[0];
+
+            const weatherresponse = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+            const w = weatherresponse.data.current_weather;
+
+            output.textContent = `Current weather in ${name}: <br> Temp: ${w.temperature}°C <br> wind speed: ${w.windspeed} km/h`;
+        }catch(err){
+            output.textContent = err.message;
+        }
+        
+    }
+  </script>
+
+</body>
+</html>
